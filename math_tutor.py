@@ -7,7 +7,7 @@ os.environ['GROQ_API_KEY'] = "your-groq-api-key"
 
 
 #load the JSON file:
-with open('/path to/test.json','r') as file:
+with open('/path to/question.json','r') as file:
   data = json.load(file)
 
 #define teacher's model:
