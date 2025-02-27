@@ -1,0 +1,9 @@
+{
+  "chatbot": {
+    "greeting": "Hello! How can I help you today?",
+    "responses": {
+      "default": "I'm sorry, I didn't understand that.",
+      "thanks": "You're welcome! If you have more questions, feel free to ask."
+    }
+  }
+}
