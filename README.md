@@ -32,7 +32,7 @@ If you are using any other framework define the APi key using:
 
 ```bash
 import os
-os.environ['GROQ_API_KEY'] = userdata.get('GROQ_API_KEY')
+os.environ['GROQ_API_KEY'] = "your-groq-api-key"
 ```
 
 ## Using the JSON file to load questions:
@@ -63,7 +63,7 @@ The JSON file will be uploaded to the system using the json library. Paste a val
 ```bash
 import json
 
-with open('/path to/question.json','r') as file:
+with open('/path to/question.json','r') as file:    
   data = json.load(file)
 
 print(data)
