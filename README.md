@@ -1,71 +1,105 @@
-# Langchain based Math Tutor
-GorqCloud and llama3-70b-8192 math tutor application 
+# Math Tutor with LangChain and Groq
 
-This project is a math tutor that uses the LangChain library to process questions sent via a JSON file. The system checks if the question is truly a math-related one by verifying the presence of mathematical operators. If it is, the question is passed to the LLaMA3-70b-8192 model, which responds to the question using the `chain.invoke()` method.
+Welcome to the **Math Tutor** project! This repository contains a Python-based application that leverages the power of LangChain and Groq's LLM (Language Learning Model) to act as a virtual math tutor. The application is designed to help children aged 8 to 12 solve math problems by categorizing and answering their questions.
 
-## Prerequisites
+## Overview
 
-Before getting started, ensure you have the following installed:
+The Math Tutor application uses a two-step process to handle user questions:
 
-- Python 3.8 or higher
-- LangChain library
-- JSON library
-- Access to the LLaMA3-70b-8192 model in the GroqCloud environment
+1. **Question Categorization**: The application first categorizes the user's question into either a "math" or "non_math" category. If the question is math-related, it proceeds to the next step. If not, it prompts the user to try again with a math question.
 
-You can install the required libraries using pip and the requirements file:
+2. **Question Answering**: If the question is categorized as "math", the application uses a specialized prompt to solve the math problem or provide an appropriate answer.
 
-```bash
-pip install -r /path/to/requirements.txt
-```
+The application is built using LangChain, a framework for developing applications powered by language models, and Groq's LLM, which provides the underlying language model capabilities.
 
-## Load groq token
+## Features
 
-Using a Colab notebook, use the `userdata.get()` to load the GroqCloud API key to the environment
+- **Question Categorization**: Automatically categorizes user questions into "math" or "non_math".
+- **Math Problem Solving**: Provides solutions to math problems for children aged 8 to 12.
+- **JSON Output**: Saves the categorized question and its details in a JSON file for further processing.
+- **User-Friendly Prompts**: Guides users to ask appropriate math-related questions.
 
-```bash
-from groq import Groq
-from google.colab import userdata
+## Installation
 
-GROQ_TOKEN = userdata.get("GROQ_TOKEN")
-```
-If you are using any other framework define the APi key using:
+To get started with the Math Tutor application, follow these steps:
 
-```bash
-import os
-os.environ['GROQ_API_KEY'] = "your-groq-api-key"
-```
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/math-tutor-langchain.git
+   ```
 
-## Using the JSON file to load questions:
+2. **Install Dependencies**:
+   Install the required Python packages using the `requirements.txt` file:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-The JSON file used in this project follows a specific structure. It contains a dictionary named "chatbot", which includes two main keys:
+3. **Set Up Groq API Key**:
+   Replace `"your-groq-api-key"` in the `os.environ['GROQ_TOKEN']` line in the code with your actual Groq API key.
 
-"question": Refers to the question that will be directed to the math tutor. This is the input that the system will process to determine if it is math-related. If it is, the question will be sent to the LLaMA3-70b-8192 model for an answer.
+## Usage
 
-"responses": Contains a list of pre-programmed responses. These responses are used in specific scenarios, such as when the question is not math-related or when the system needs to provide a default reply.
+1. **Run the Application**:
+   Execute the Python script to start the Math Tutor:
+   ```bash
+   python math_tutor.py
+   ```
 
-Example of the JSON File:
-Here is an example of how the JSON file should be structured:
+2. **Input Your Question**:
+   The application will prompt you to input a question. For example:
+   ```plaintext
+   Please, help me solve this equation: 5x2 + 2x + 2 = 0
+   ```
 
-```bash
+3. **View the Results**:
+   The application will categorize the question and provide an answer if it is math-related. The results will be displayed in the console and saved in a `question.json` file.
+
+## Example Output
+
+### Console Output:
+```plaintext
 {
-  "chatbot": {
-    "question": "help me solve this equation: 2x^2 + 4x – 6 = 0",
-    "responses": {
-      "default": "I'm sorry, I didn't understand that."
+    "keywords": {
+        "question": "Please, help me solve this equation: 5x2 + 2x + 2 = 0",
+        "category": "math"
     }
-  }
 }
 ```
 
-## Uploading the JSON file: 
-
-The JSON file will be uploaded to the system using the json library. Paste a valid file path to read and process the JSON file:
-```bash
-import json
-
-with open('/path to/question.json','r') as file:    
-  data = json.load(file)
-
-print(data)
+### JSON File (`question.json`):
+```json
+{
+    "keywords": {
+        "question": "Please, help me solve this equation: 5x2 + 2x + 2 = 0",
+        "category": "math"
+    }
+}
 ```
 
+### Answer:
+```plaintext
+{
+    "answer": "The solution to the equation 5x^2 + 2x + 2 = 0 is complex. The roots are x = [-2 ± sqrt(4 - 40)] / 10, which simplifies to x = [-2 ± sqrt(-36)] / 10. Therefore, the roots are x = [-2 ± 6i] / 10, or x = -0.2 ± 0.6i."
+}
+```
+
+## Customization
+
+You can customize the prompts and the behavior of the application by modifying the `PromptTemplate` instances in the code. For example, you can adjust the temperature of the Groq LLM or change the model name to experiment with different language models.
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Acknowledgments
+
+- **LangChain**: For providing the framework to build applications with language models.
+- **Groq**: For providing the powerful LLM that powers this application.
+
+---
+
+Thank you for using the Math Tutor application! We hope it helps make learning math fun and easy for children. If you have any questions or feedback, feel free to reach out.
